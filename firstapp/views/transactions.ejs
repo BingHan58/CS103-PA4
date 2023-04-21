@@ -1,0 +1,63 @@
+<h1>Transactions for <%= user.username %></h1>
+<p>Here is your list of transactions!</p>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const transactions = <%- JSON.stringify(transactions) %>;
+    const params = new URLSearchParams(window.location.search);
+    const sortBy = params.get('sortBy');
+    function cmp(field) {
+      return (a, b) => a[field] < b[field] ? -1 : 1
+    }
+    transactions.sort(cmp(sortBy));
+    transactions.forEach((transaction) => {
+      const dateOptions = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+      const date = new Date(transaction.date).toLocaleDateString('en-US', dateOptions);
+      $("#myTable").append(`<tr>
+        <td>${transaction.description}</td>
+        <td>${transaction.category}</td>
+        <td>${transaction.amount}</td>
+        <td>${date}</td>
+        <td><a href="/transactions/remove/${transaction._id}"><i class="bi bi-trash" ></i></a></td>
+        <td><a href="/transactions/edit/${transaction._id}"><i class="bi bi-pencil-square"></i></a></td>
+        </tr>`);
+    });
+  });
+</script>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><a href="/transactions/byCategory">group by category</a></th>
+      <th><a href="?sortBy=category">sort by category</a></th>
+      <th><a href="?sortBy=amount">sort by amout</a></th>
+      <th><a href="?sortBy=description">sort by description</a></th>
+      <th><a href="?sortBy=date">sort by date</a></th>
+    </tr>
+    </thead>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>description</th>
+      <th>category</th>
+      <th>amount</th>
+      <th>date</th>
+      <th>Delete</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody id="myTable"></tbody>
+</table>
+
+<h2>Add a New Transaction</h2>
+<form method="post" action="transactions">
+  <p><input type="text" name="description" id="description" placeholder="description" required /></p>
+  <p><input type="text" name="category" id="category" placeholder="category" required /></p>
+  <p><input type="text" name="amount" id="amount" placeholder="amount" required /></p>
+  <p><input type="datetime-local" name="date" id="date" required /></p>
+    </select>
+    <br>
+    <input type="submit" value="store">
+</form>
+

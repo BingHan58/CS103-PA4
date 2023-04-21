@@ -1,0 +1,9 @@
+<h1>Transactions for <%= user.username %></h1>
+<form method="post" action="/transactions/update">
+  <p><input type="text" name="description" id="description" placeholder="description" value="<%= transaction.description %>" /></p>
+  <p><input type="text" name="category" id="category" placeholder="category" value="<%= transaction.category %>"  /></p>
+  <p><input type="text" name="amount" id="amount" placeholder="amount" value="<%= transaction.amount %>"  /></p>
+  <p><input type="datetime-local" name="date" id="date" value="<%= transaction.date ? transaction.date.toISOString().substring(0, 10) : '' %>" /></p>
+  <input type="submit" value="store" />
+</form>
+
