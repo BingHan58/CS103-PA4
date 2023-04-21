@@ -72,20 +72,3 @@ router.post("/transactions/update", isLoggedIn, async (req, res, next) => {
   res.redirect("/transactions");
 });
 
-
-router.get('/transactions', (req, res) => {
-  const sortOrder = req.query.sortBy === 'category' ? { category: 1 } :
-                     req.query.sortBy === 'amount' ? { amount: 1 } :
-                     req.query.sortBy === 'date' ? { date: 1 } :
-                     {};
-
-  Transaction.find().sort(sortOrder)
-    .then((transactions) => {
-      res.render('transactions', { transactions });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Internal Server Error');
-    });
-});
-module.exports = router;
