@@ -1,5 +1,6 @@
 <h1>Transactions for <%= user.username %></h1>
 <form method="post" action="/transactions/update">
+  <input type="hidden" name="transactionId" value="<%= transaction._id %>" />
   <p><input type="text" name="description" id="description" placeholder="description" value="<%= transaction.description %>" /></p>
   <p><input type="text" name="category" id="category" placeholder="category" value="<%= transaction.category %>"  /></p>
   <p><input type="text" name="amount" id="amount" placeholder="amount" value="<%= transaction.amount %>"  /></p>
