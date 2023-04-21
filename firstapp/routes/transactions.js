@@ -72,3 +72,4 @@ router.post("/transactions/update", isLoggedIn, async (req, res, next) => {
   res.redirect("/transactions");
 });
 
+module.exports = router;
